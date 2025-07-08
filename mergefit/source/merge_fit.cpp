@@ -317,6 +317,7 @@ int MergeFit::run(const std::string& cad_file_in, const std::string& cad_file_ou
             return 1;
         }
         generate_quad_mesh_from_tri_mesh(cad_file_in, patch_info);
+        //get the following line functioning next.
         // fit_NURBS_from_quad_patch(patch_info, surf);
         // write_CAD_to_step(surf_pat, cad_file_out);
     }
