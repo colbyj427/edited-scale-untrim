@@ -109,8 +109,6 @@ void MergeFit::read_config_file(const std::string &fn)
     {
         std::cout << "==============================================\n";
         cout << "Can't open the configuration file because it may not be provided.\n";
-        // TODO: Remove this line below
-        cout << fn << " does not exist!\n";
         char cwd[PATH_MAX];
         if (getcwd(cwd, sizeof(cwd)) != NULL) {
             printf("Current working dir: %s\n", cwd);
@@ -165,22 +163,6 @@ void MergeFit::read_config_file(const std::string &fn)
     {
         std::abort();
     }
-
-//    if (temp_dir.empty())
-//    {
-//        boost::filesystem::path full_path(boost::filesystem::current_path() / "temp");
-//        boost::filesystem::create_directory(full_path);
-//        temp_dir = full_path.string();
-//    }
-//
-//    if (temp_dir.back() != '\\' && temp_dir.back() != '/')
-//    {
-//#ifdef _WIN32
-//        temp_dir += "\\";
-//#else
-//        temp_dir += "/";
-//#endif
-//    }
 }
 
 bool MergeFit::file_exist(const std::string &fn) const
@@ -197,7 +179,7 @@ bool MergeFit::file_exist(const std::string &fn) const
     return state;
 }
 
-// Should be able to get rid of this
+
 int MergeFit::generate_tri_mesh_from_CAD(const std::string &cad, const std::string &tri)
 {
     std::cout << "==============================================\n";
@@ -209,7 +191,7 @@ int MergeFit::generate_tri_mesh_from_CAD(const std::string &cad, const std::stri
     return 0;
 }
 
-// Should be able to get rid of this
+
 int MergeFit::fix_tri_mesh(const std::string &tri_obj, const std::string &tri_fix)
 {
     std::cout << "==============================================\n";
@@ -223,7 +205,7 @@ int MergeFit::fix_tri_mesh(const std::string &tri_obj, const std::string &tri_fi
     return 0;
 }
 
-// We need this!
+
 int MergeFit::generate_quad_mesh_from_tri_mesh(const std::string &tri_fix, const std::string &patch_info)
 {
     std::cout << "==============================================\n";
@@ -242,7 +224,7 @@ int MergeFit::generate_quad_mesh_from_tri_mesh(const std::string &tri_fix, const
     return 0;
 }
 
-// This would be nice to have, but we'd really like the quad mesh first
+
 int MergeFit::fit_NURBS_from_quad_patch(const std::string &patch_info, const std::string &surf)
 {
     std::cout << "==============================================\n";
@@ -256,7 +238,7 @@ int MergeFit::fit_NURBS_from_quad_patch(const std::string &patch_info, const std
     return 0;
 }
 
-// Should be able to get rid of this
+
 int MergeFit::write_CAD_to_step(const std::string &surf_pat, const std::string &cad_out)
 {
     std::cout << "==============================================\n";
