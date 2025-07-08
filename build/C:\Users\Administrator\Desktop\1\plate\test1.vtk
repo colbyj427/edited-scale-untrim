@@ -1,9 +1,0 @@
-# vtk DataFile Version 2.0
-name, Created by Gmsh 4.11.2-git-c089f96d2 
-ASCII
-DATASET UNSTRUCTURED_GRID
-POINTS 0 double
-
-CELLS 0 0
-
-CELL_TYPES 0
