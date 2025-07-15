@@ -15,7 +15,7 @@
 namespace qflow {
 void quadgeneration::QMG(std::string input_tri, std::string output_quad, std::string output_patch_file,
          std::string output_patch_information, double magnitude_factor, int preserve_sharp,
-         int preserve_boundary, int minimum_cost, int adaptive_scale,double angle) {
+         int preserve_boundary, int minimum_cost, int adaptive_scale, double angle) {
     Parametrizer field;
     int t1, t2;
     std::string input_obj, output_obj, output_patch, output_txt;
