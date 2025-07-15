@@ -299,7 +299,6 @@ int MergeFit::run(const std::string& cad_file_in, const std::string& cad_file_ou
             return 1;
         }
         generate_quad_mesh_from_tri_mesh(cad_file_in, patch_info);
-        //get the following line functioning next.
         // fit_NURBS_from_quad_patch(patch_info, surf);
         // write_CAD_to_step(surf_pat, cad_file_out);
     }
@@ -375,10 +374,8 @@ int MergeFit::run(const std::string& cad_file_in, const std::string& cad_file_ou
         }
         std::cout << cad_file_in << "\n";
         generate_quad_mesh_from_tri_mesh(cad_file_in, patch_info);
-        // we could probably comment these next two lines away
-        //fit_NURBS_from_quad_patch(patch_info, surf);
-        // but check if the above one is useful; the last is probably not useful
-        // write_CAD_to_step(surf_pat, cad_file_out);
+        fit_NURBS_from_quad_patch(patch_info, surf);
+        write_CAD_to_step(surf_pat, cad_file_out);
     }
     else if (run_from == 3)
     {
