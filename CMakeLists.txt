@@ -21,37 +21,33 @@ find_package(Boost REQUIRED)
 # include_directories(${OpenCASCADE_INCLUDE_DIR})
 
 #######################
-# Try to find OpenCASCADE automatically
-# find_package(OpenCASCADE)
+# Try to find OpenCascade automatically
+find_package(OpenCASCADE QUIET)
 
-# if(OpenCASCADE_FOUND)
-#     message(STATUS "Found OpenCASCADE via find_package")
-#     include_directories(${OpenCASCADE_INCLUDE_DIR})
-#     set(OCCT_LIBS ${OpenCASCADE_LIBRARIES})
-# else()
-#     # Fallback for macOS/Homebrew
-#     if(APPLE)
-#         set(OpenCASCADE_PATH "/opt/homebrew")
-#         set(OpenCASCADE_INCLUDE_DIR "${OpenCASCADE_PATH}/include/opencascade")
-#         include_directories(${OpenCASCADE_INCLUDE_DIR})
-#         file(GLOB OCCT_LIBS "${OpenCASCADE_PATH}/lib/*.dylib")
-#         message(STATUS "Using OpenCASCADE from Homebrew at ${OpenCASCADE_PATH}")
-#     else()
-#         # Fallback for Linux/Ubuntu
-#         set(OpenCASCADE_PATH "/usr")
-#         set(OpenCASCADE_INCLUDE_DIR "${OpenCASCADE_PATH}/include/opencascade")
-#         include_directories(${OpenCASCADE_INCLUDE_DIR})
-#         file(GLOB OCCT_LIBS "${OpenCASCADE_PATH}/lib/x86_64-linux-gnu/libTK*.so")
-#         message(STATUS "Using OpenCASCADE from /usr")
-#     endif()
-# endif()
+if(OpenCASCADE_FOUND)
+    message(STATUS "Found OpenCASCADE via find_package")
+    include_directories(${OpenCASCADE_INCLUDE_DIR})
+    set(OCCT_LIBS ${OpenCASCADE_LIBRARIES})
+else()
+    message(STATUS "OpenCASCADE not found automatically, using fallback paths")
+
+    if(APPLE)
+        # macOS fallback (Homebrew)
+        set(OpenCASCADE_PATH "/opt/homebrew")
+        set(OpenCASCADE_INCLUDE_DIR "${OpenCASCADE_PATH}/include/opencascade")
+        include_directories(${OpenCASCADE_INCLUDE_DIR})
+        file(GLOB OCCT_LIBS "${OpenCASCADE_PATH}/lib/*.dylib")
+        message(STATUS "Using OpenCASCADE from Homebrew at ${OpenCASCADE_PATH}")
+    else()
+        # Linux fallback (Ubuntu/Debian default)
+        set(OpenCASCADE_PATH "/usr")
+        set(OpenCASCADE_INCLUDE_DIR "${OpenCASCADE_PATH}/include/opencascade")
+        include_directories(${OpenCASCADE_INCLUDE_DIR})
+        file(GLOB OCCT_LIBS "${OpenCASCADE_PATH}/lib/x86_64-linux-gnu/libTK*.so")
+        message(STATUS "Using OpenCASCADE from ${OpenCASCADE_PATH}")
+    endif()
+endif()
 ###################
-# Try to find OpenCASCADE automatically
-find_package(OpenCASCADE REQUIRED)
-
-# Include headers
-include_directories(${OpenCASCADE_INCLUDE_DIR})
-
 ##############
 
 if (BUILD_GUROBI)
@@ -158,7 +154,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     ${TBB_LIBRARIES}
     ${LEMON_LIBRARIES}
     ${GUROBI_LIBRARIES}
-    ${OpenCASCADE_LIBRARIES})
+    ${OCCT_LIBS})
 
 # # Manually set the installation path here
 # set(CMAKE_INSTALL_PREFIX 
