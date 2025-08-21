@@ -22,6 +22,8 @@ find_package(Boost REQUIRED)
 
 #######################
 find_package(OpenCASCADE REQUIRED)
+if(OpenCASCADE_FOUND)
+    message("OpenCascade found.")
 if(NOT OpenCASCADE_FOUND)
     message(FATAL_ERROR "OpenCASCADE not found! Please install it and set OpenCASCADE_DIR.")
 endif()
@@ -167,5 +169,3 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 
 # install(TARGETS ${CMAKE_PROJECT_NAME} DESTINATION lib)
 # install(FILES ${QuadriFlow_headers} DESTINATION include)
-
-
