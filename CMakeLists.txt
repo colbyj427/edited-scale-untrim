@@ -22,12 +22,47 @@ find_package(Boost REQUIRED)
 
 #######################
 find_package(OpenCASCADE REQUIRED)
+################
+# After find_package(OpenCASCADE REQUIRED)
 if(OpenCASCADE_FOUND)
-    message(STATUS "OpenCascade found.")
-    include_directories(${OpenCASCADE_INCLUDE_DIRS})
-else()
-    message(FATAL_ERROR "OpenCASCADE not found! Please install it and set OpenCASCADE_DIR.")
+    message(STATUS "OpenCascade found at ${OpenCASCADE_DIR}")
+
+    # Force the include + lib dirs
+    include_directories(/usr/include/opencascade)
+    link_directories(/usr/lib/aarch64-linux-gnu)
+
+    target_link_libraries(${CMAKE_PROJECT_NAME}
+        TKernel
+        TKMath
+        TKGeomBase
+        TKGeomAlgo
+        TKTopAlgo
+        TKPrim
+        TKBO
+        TKG3d
+        TKG2d
+        TKMesh
+        TKService
+        TKShHealing
+        TKOffset
+        TKFillet
+        TKBool
+        TKSTEP
+        TKSTEP209
+        TKSTEPAttr
+        TKSTEPBase
+        TKIGES
+        TKXDESTEP
+        TKXDEIGES
+    )
 endif()
+
+# if(OpenCASCADE_FOUND)
+#     message(STATUS "OpenCascade found.")
+#     include_directories(${OpenCASCADE_INCLUDE_DIRS})
+# else()
+#     message(FATAL_ERROR "OpenCASCADE not found! Please install it and set OpenCASCADE_DIR.")
+# endif()
 ##################
 # Try to find OpenCascade automatically
 # find_package(OpenCASCADE QUIET)
