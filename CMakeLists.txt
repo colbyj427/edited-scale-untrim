@@ -23,8 +23,8 @@ find_package(Boost REQUIRED)
 #######################
 find_package(OpenCASCADE REQUIRED)
 if(OpenCASCADE_FOUND)
-    message("OpenCascade found.")
-if(NOT OpenCASCADE_FOUND)
+    message(STATUS "OpenCascade found.")
+else()
     message(FATAL_ERROR "OpenCASCADE not found! Please install it and set OpenCASCADE_DIR.")
 endif()
 ##################
