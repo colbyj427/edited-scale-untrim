@@ -30,31 +30,6 @@ if(OpenCASCADE_FOUND)
     # Force the include + lib dirs
     include_directories(/usr/include/opencascade)
     link_directories(/usr/lib/aarch64-linux-gnu)
-
-    target_link_libraries(${CMAKE_PROJECT_NAME}
-        TKernel
-        TKMath
-        TKGeomBase
-        TKGeomAlgo
-        TKTopAlgo
-        TKPrim
-        TKBO
-        TKG3d
-        TKG2d
-        TKMesh
-        TKService
-        TKShHealing
-        TKOffset
-        TKFillet
-        TKBool
-        TKSTEP
-        TKSTEP209
-        TKSTEPAttr
-        TKSTEPBase
-        TKIGES
-        TKXDESTEP
-        TKXDEIGES
-    )
 endif()
 
 # if(OpenCASCADE_FOUND)
@@ -198,6 +173,28 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     ${LEMON_LIBRARIES}
     ${GUROBI_LIBRARIES}
     # ${OpenCASCADE_LIBRARIES})
+    TKernel
+    TKMath
+    TKGeomBase
+    TKGeomAlgo
+    TKTopAlgo
+    TKPrim
+    TKBO
+    TKG3d
+    TKG2d
+    TKMesh
+    TKService
+    TKShHealing
+    TKOffset
+    TKFillet
+    TKBool
+    TKSTEP
+    TKSTEP209
+    TKSTEPAttr
+    TKSTEPBase
+    TKIGES
+    TKXDESTEP
+    TKXDEIGES
 )
 
 # # Manually set the installation path here
