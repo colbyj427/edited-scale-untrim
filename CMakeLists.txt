@@ -197,7 +197,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     ${TBB_LIBRARIES}
     ${LEMON_LIBRARIES}
     ${GUROBI_LIBRARIES}
-    ${OpenCASCADE_LIBRARIES})
+    # ${OpenCASCADE_LIBRARIES})
 
 # # Manually set the installation path here
 # set(CMAKE_INSTALL_PREFIX 
