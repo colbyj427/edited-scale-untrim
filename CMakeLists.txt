@@ -135,7 +135,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     ${LEMON_LIBRARIES}
     ${GUROBI_LIBRARIES}
     if(APPLE)
-        ${OpenCASCADE_LIBRARIES})
+        ${OpenCASCADE_LIBRARIES}
     elseif(UNIX)
         TKernel
         TKMath
