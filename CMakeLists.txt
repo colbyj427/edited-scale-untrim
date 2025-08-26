@@ -130,13 +130,11 @@ file(GLOB QuadriFlow_sources "source/*.cpp"
 
 add_executable(${CMAKE_PROJECT_NAME} ${QuadriFlow_sources})
 
-target_link_libraries(${CMAKE_PROJECT_NAME}
-    ${TBB_LIBRARIES}
-    ${LEMON_LIBRARIES}
-    ${GUROBI_LIBRARIES}
-    if(APPLE)
-        ${OpenCASCADE_LIBRARIES}
-    elseif(UNIX)
+if(UNIX AND NOT APPLE)
+    target_link_libraries(${CMAKE_PROJECT_NAME}
+        ${TBB_LIBRARIES}
+        ${LEMON_LIBRARIES}
+        ${GUROBI_LIBRARIES}
         TKernel
         TKMath
         TKGeomBase
@@ -159,10 +157,17 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
         TKIGES
         TKXDESTEP
         TKXDEIGES
-    endif()
-)
+    )
+else()
+    target_link_libraries(${CMAKE_PROJECT_NAME}
+        ${TBB_LIBRARIES}
+        ${LEMON_LIBRARIES}
+        ${GUROBI_LIBRARIES}
+        ${OpenCASCADE_LIBRARIES}
+    )
+endif()
 
-# # Manually set the installation path here
+# Manually set the installation path here
 # set(CMAKE_INSTALL_PREFIX 
 #     "/Users/xiaodongwei/Documents/projects/quadriflow/build/release")
 
