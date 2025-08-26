@@ -134,29 +134,32 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     ${TBB_LIBRARIES}
     ${LEMON_LIBRARIES}
     ${GUROBI_LIBRARIES}
-    # ${OpenCASCADE_LIBRARIES})
-    TKernel
-    TKMath
-    TKGeomBase
-    TKGeomAlgo
-    TKTopAlgo
-    TKPrim
-    TKBO
-    TKG3d
-    TKG2d
-    TKMesh
-    TKService
-    TKShHealing
-    TKOffset
-    TKFillet
-    TKBool
-    TKSTEP
-    TKSTEP209
-    TKSTEPAttr
-    TKSTEPBase
-    TKIGES
-    TKXDESTEP
-    TKXDEIGES
+    if(APPLE)
+        ${OpenCASCADE_LIBRARIES})
+    elseif(UNIX)
+        TKernel
+        TKMath
+        TKGeomBase
+        TKGeomAlgo
+        TKTopAlgo
+        TKPrim
+        TKBO
+        TKG3d
+        TKG2d
+        TKMesh
+        TKService
+        TKShHealing
+        TKOffset
+        TKFillet
+        TKBool
+        TKSTEP
+        TKSTEP209
+        TKSTEPAttr
+        TKSTEPBase
+        TKIGES
+        TKXDESTEP
+        TKXDEIGES
+    endif()
 )
 
 # # Manually set the installation path here
