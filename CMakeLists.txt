@@ -13,60 +13,22 @@ set(Boost_USE_STATIC_LIBS ON)
 find_package(Eigen REQUIRED)
 find_package(Boost REQUIRED)
 
-# manually include OCC, you can also do it in VS
-# set(OpenCASCADE_PATH "/opt/homebrew")
-# set(OpenCASCADE_INCLUDE_DIR "${OpenCASCADE_PATH}/include/opencascade")
-# file(GLOB OpenCASCADE_LIBRARIES 
-#   "${OpenCASCADE_PATH}/lib/*.dylib")
-# include_directories(${OpenCASCADE_INCLUDE_DIR})
+if(APPLE)
+    # manually include OCC, you can also do it in VS
+    set(OpenCASCADE_PATH "/opt/homebrew")
+    set(OpenCASCADE_INCLUDE_DIR "${OpenCASCADE_PATH}/include/opencascade")
+    file(GLOB OpenCASCADE_LIBRARIES 
+    "${OpenCASCADE_PATH}/lib/*.dylib")
+    include_directories(${OpenCASCADE_INCLUDE_DIR})
+elseif(UNIX)
+    find_package(OpenCASCADE REQUIRED)
+    if(OpenCASCADE_FOUND)
+        message(STATUS "OpenCascade found at ${OpenCASCADE_DIR}")
 
-#######################
-find_package(OpenCASCADE REQUIRED)
-################
-# After find_package(OpenCASCADE REQUIRED)
-if(OpenCASCADE_FOUND)
-    message(STATUS "OpenCascade found at ${OpenCASCADE_DIR}")
-
-    # Force the include + lib dirs
-    include_directories(/usr/include/opencascade)
-    link_directories(/usr/lib/aarch64-linux-gnu)
+        include_directories(/usr/include/opencascade)
+        link_directories(/usr/lib/aarch64-linux-gnu)
+    endif()
 endif()
-
-# if(OpenCASCADE_FOUND)
-#     message(STATUS "OpenCascade found.")
-#     include_directories(${OpenCASCADE_INCLUDE_DIRS})
-# else()
-#     message(FATAL_ERROR "OpenCASCADE not found! Please install it and set OpenCASCADE_DIR.")
-# endif()
-##################
-# Try to find OpenCascade automatically
-# find_package(OpenCASCADE QUIET)
-
-# if(OpenCASCADE_FOUND)
-#     message(STATUS "Found OpenCASCADE via find_package")
-#     include_directories(${OpenCASCADE_INCLUDE_DIR})
-#     set(OCCT_LIBS ${OpenCASCADE_LIBRARIES})
-# else()
-#     message(STATUS "OpenCASCADE not found automatically, using fallback paths")
-
-#     if(APPLE)
-#         # macOS fallback (Homebrew)
-#         set(OpenCASCADE_PATH "/opt/homebrew")
-#         set(OpenCASCADE_INCLUDE_DIR "${OpenCASCADE_PATH}/include/opencascade")
-#         include_directories(${OpenCASCADE_INCLUDE_DIR})
-#         file(GLOB OCCT_LIBS "${OpenCASCADE_PATH}/lib/*.dylib")
-#         message(STATUS "Using OpenCASCADE from Homebrew at ${OpenCASCADE_PATH}")
-#     else()
-#         # Linux fallback (Ubuntu/Debian default)
-#         set(OpenCASCADE_PATH "/usr")
-#         set(OpenCASCADE_INCLUDE_DIR "${OpenCASCADE_PATH}/include/opencascade")
-#         include_directories(${OpenCASCADE_INCLUDE_DIR})
-#         file(GLOB OCCT_LIBS "${OpenCASCADE_PATH}/lib/x86_64-linux-gnu/libTK*.so")
-#         message(STATUS "Using OpenCASCADE from ${OpenCASCADE_PATH}")
-#     endif()
-# endif()
-###################
-##############
 
 if (BUILD_GUROBI)
     find_package(GUROBI REQUIRED)
