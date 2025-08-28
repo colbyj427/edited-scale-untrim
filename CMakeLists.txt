@@ -21,19 +21,32 @@ if(APPLE)
     "${OpenCASCADE_PATH}/lib/*.dylib")
     include_directories(${OpenCASCADE_INCLUDE_DIR})
 elseif(UNIX)
-    find_package(OpenCASCADE COMPONENTS
-        FoundationClasses
-        ModelingData
-        ModelingAlgorithms
-        DataExchange
-        Visualization
-        REQUIRED)
-    if(OpenCASCADE_FOUND)
-        message(STATUS "OpenCascade found at ${OpenCASCADE_DIR}")
+    # Linux fallback (if find_package fails)
+    set(OpenCASCADE_PATH "/usr")  # system prefix
+    set(OpenCASCADE_INCLUDE_DIR "${OpenCASCADE_PATH}/include/opencascade")
+    file(GLOB OpenCASCADE_LIBRARIES
+        "${OpenCASCADE_PATH}/lib/x86_64-linux-gnu/libTK*.so"
+        "${OpenCASCADE_PATH}/lib/libTK*.so")
 
-        include_directories(/usr/include/opencascade)
-        link_directories(/usr/lib/aarch64-linux-gnu)
+    if(NOT EXISTS "${OpenCASCADE_INCLUDE_DIR}")
+        message(FATAL_ERROR "OpenCASCADE headers not found at ${OpenCASCADE_INCLUDE_DIR}")
     endif()
+
+    include_directories(${CMAKE_PROJECT_NAME} ${OpenCASCADE_INCLUDE_DIR})
+
+    # find_package(OpenCASCADE COMPONENTS
+    #     FoundationClasses
+    #     ModelingData
+    #     ModelingAlgorithms
+    #     DataExchange
+    #     Visualization
+    #     REQUIRED)
+    # if(OpenCASCADE_FOUND)
+    #     message(STATUS "OpenCascade found at ${OpenCASCADE_DIR}")
+
+    #     include_directories(/usr/include/opencascade)
+    #     link_directories(/usr/lib/aarch64-linux-gnu)
+    # endif()
 endif()
 
 if (BUILD_GUROBI)
@@ -141,11 +154,12 @@ if(UNIX AND NOT APPLE)
         ${TBB_LIBRARIES}
         ${LEMON_LIBRARIES}
         ${GUROBI_LIBRARIES}
-        OpenCASCADE::FoundationClasses
-        OpenCASCADE::ModelingData
-        OpenCASCADE::ModelingAlgorithms
-        OpenCASCADE::DataExchange
-        OpenCASCADE::Visualization
+        ${OpenCASCADE_LIBRARIES}
+        # OpenCASCADE::FoundationClasses
+        # OpenCASCADE::ModelingData
+        # OpenCASCADE::ModelingAlgorithms
+        # OpenCASCADE::DataExchange
+        # OpenCASCADE::Visualization
     )
 else()
     target_link_libraries(${CMAKE_PROJECT_NAME}
