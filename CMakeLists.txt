@@ -21,7 +21,13 @@ if(APPLE)
     "${OpenCASCADE_PATH}/lib/*.dylib")
     include_directories(${OpenCASCADE_INCLUDE_DIR})
 elseif(UNIX)
-    find_package(OpenCASCADE REQUIRED)
+    find_package(OpenCASCADE COMPONENTS
+        FoundationClasses
+        ModelingData
+        ModelingAlgorithms
+        DataExchange
+        Visualization
+        REQUIRED)
     if(OpenCASCADE_FOUND)
         message(STATUS "OpenCascade found at ${OpenCASCADE_DIR}")
 
