@@ -141,28 +141,11 @@ if(UNIX AND NOT APPLE)
         ${TBB_LIBRARIES}
         ${LEMON_LIBRARIES}
         ${GUROBI_LIBRARIES}
-        TKernel
-        TKMath
-        TKGeomBase
-        TKGeomAlgo
-        TKTopAlgo
-        TKPrim
-        TKBO
-        TKG3d
-        TKG2d
-        TKMesh
-        TKService
-        TKShHealing
-        TKOffset
-        TKFillet
-        TKBool
-        TKSTEP
-        TKSTEP209
-        TKSTEPAttr
-        TKSTEPBase
-        TKIGES
-        TKXDESTEP
-        TKXDEIGES
+        OpenCASCADE::FoundationClasses
+        OpenCASCADE::ModelingData
+        OpenCASCADE::ModelingAlgorithms
+        OpenCASCADE::DataExchange
+        OpenCASCADE::Visualization
     )
 else()
     target_link_libraries(${CMAKE_PROJECT_NAME}
